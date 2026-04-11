@@ -1,0 +1,37 @@
+<html>
+    <body>
+<h2>verfiy OTP</h2>
+<input id="phone"
+placeholder="phone"><br><br>
+<input id="otp" placeholder="Emter OTP"><br><br>
+
+<button onclick="verifyOTP()">Verify</button>
+
+<script>
+
+    async function verifyOTP(){
+        const otp=document.getElementById("otp").value;
+
+        const phone=
+        localStorage.getItem("phone");
+
+        const res=await
+        fetch("http://localhost:3000/verify-otp",
+           {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({phone,otp})
+           });
+           const data=await res.json();
+           alert(data.message);
+           if(res.status===200){
+
+            window.location.href="home.html";
+           }
+        
+    }
+    </script>
+    </body>
+    </html>

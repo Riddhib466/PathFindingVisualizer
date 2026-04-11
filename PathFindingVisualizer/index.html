@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pathfinding Visualizer</title>
+  <style>
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(20, 25px);
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .cell {
+      width: 25px;
+      height: 25px;
+      border: 1px solid #ccc;
+    }
+
+    .wall { background: black; }
+    .start { background: green; }
+    .end { background: red; }
+    .visited { background: lightblue; }
+    .path { background: yellow; }
+  </style>
+</head>
+
+<body>
+
+<h2>Pathfinding Visualizer</h2>
+
+<button onclick="runBFS()">Run BFS</button>
+
+<!-- ✅ THIS WAS YOUR MISTAKE -->
+<div id="grid"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
