@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Notes App</title>
+</head>
+<body>
+
+<h2>Upload Note</h2>
+
+<form id="uploadForm">
+  <input type="text" name="title" placeholder="Title" required><br><br>
+  <input type="text" name="subject" placeholder="Subject" required><br><br>
+  <input type="file" name="file" required><br><br>
+  <input type="hidden" name="userId" value="1">
+  <button type="submit">Upload</button>
+</form>
+
+<h2>All Notes</h2>
+<ul id="notesList"></ul>
+
+<script>
+// Upload
+document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+
+  await fetch("http://localhost:5000/api/notes/upload", {
+    method: "POST",
+    body: formData
+  });
+
+  alert("Uploaded");
+  loadNotes();
+});
+
+// Fetch notes
+async function loadNotes() {
+  const res = await fetch("http://localhost:5000/api/notes");
+  const data = await res.json();
+
+  const list = document.getElementById("notesList");
+  list.innerHTML = "";
+
+  data.forEach(note => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      ${note.title} - ${note.subject}
+      <a href="http://localhost:5000/${note.file_url}" target="_blank">View</a>
+    `;
+    list.appendChild(li);
+  });
+}
+
+// Load on start
+loadNotes();
+</script>
+
+</body>
+</html>
